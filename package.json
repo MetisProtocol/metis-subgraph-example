@@ -1,0 +1,18 @@
+{
+  "name": "metis-subgraph-example",
+  "license": "MIT",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "a subgraph example for Metis",
+  "main": "index.js",
+  "scripts": {},
+  "workspaces": [
+    "contract",
+    "subgraph"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ericlee42/metis-subgraph-example.git"
+  },
+  "keywords": []
+}

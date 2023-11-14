@@ -1,0 +1,24 @@
+{
+  "name": "contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:local": "hardhat deploy --network devnet",
+    "deploy:goerli": "hardhat deploy --network metis-goerli",
+    "verify:goerli": "hardhat etherscan-verify --network metis-goerli",
+    "deploy:andromeda": "hardhat deploy --network metis-andromeda",
+    "verify:andromeda": "hardhat etherscan-verify --network metis-andromeda"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "hardhat": "^2.19.0",
+    "hardhat-deploy": "^0.11.43"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+  }
+}

@@ -1,0 +1,82 @@
+version: '3.8'
+services:
+  geth:
+    build:
+      context: dev-geth
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "geth attach --datadir /data --exec eth.blockNumber"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 3s
+    ports:
+      - 8545:8545
+      - 8546:8546
+    volumes:
+      - ./data/geth:/data
+      - ./dev-geth/genesis.json:/genesis.json
+  ipfs:
+    image: ipfs/go-ipfs:v0.23.0
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./data/ipfs:/data/ipfs
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "ipfs dag stat /ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn || exit 1"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - '5432:5432'
+    command:
+      [
+        "postgres",
+        "-cshared_preload_libraries=pg_stat_statements",
+        "-cmax_connections=200"
+      ]
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    environment:
+      POSTGRES_USER: graph-node
+      POSTGRES_PASSWORD: pa$$w0rd
+      POSTGRES_DB: graph-node
+      PGDATA: "/var/lib/postgresql/data"
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+  graph-node:
+    image: graphprotocol/graph-node:v0.33.0
+    ports:
+      - '8000:8000'
+      - '8001:8001'
+      - '8020:8020'
+      - '8030:8030'
+      - '8040:8040'
+    depends_on:
+      geth:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      ipfs:
+        condition: service_healthy
+    environment:
+      postgres_host: postgres
+      postgres_user: graph-node
+      postgres_pass: pa$$w0rd
+      postgres_db: graph-node
+      ipfs: 'ipfs:5001'
+      ethereum: 'devnet:http://geth:8545'
+      GRAPH_LOG: info

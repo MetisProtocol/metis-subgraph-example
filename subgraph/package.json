@@ -1,0 +1,24 @@
+{
+  "name": "subgraph",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create:local": "graph create --node http://localhost:8020/ example/gravatar-registry",
+    "remove:local": "graph remove --node http://localhost:8020/ example/gravatar-registry",
+    "deploy:local": "graph deploy --version-label v0.0.1 --network devnet --node http://localhost:8020/ --ipfs http://localhost:5001 example/gravatar-registry",
+    "create:goerli": "graph create --node https://metisapi.0xgraph.xyz/deploy ericlee42/gravatar-registry-goerli",
+    "remove:goerli": "graph remove --node https://metisapi.0xgraph.xyz/deploy ericlee42/gravatar-registry-goerli",
+    "deploy:goerli": "graph deploy --version-label v0.0.1 --network metis-goerli --node https://metisapi.0xgraph.xyz/deploy --ipfs https://metisapi.0xgraph.xyz/ipfs ericlee42/gravatar-registry-goerli",
+    "create:andromeda": "graph create --node https://metisapi.0xgraph.xyz/deploy ericlee42/gravatar-registry-andromeda",
+    "remove:andromeda": "graph remove --node https://metisapi.0xgraph.xyz/deploy ericlee42/gravatar-registry-andromeda",
+    "deploy:andromeda": "graph deploy --version-label v0.0.1 --network andromeda --node https://metisapi.0xgraph.xyz/deploy --ipfs https://metisapi.0xgraph.xyz/ipfs ericlee42/gravatar-registry-andromeda"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.31.0"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.61.0"
+  }
+}

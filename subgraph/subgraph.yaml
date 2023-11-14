@@ -1,0 +1,25 @@
+specVersion: 0.0.7
+repository: https://github.com/ericlee42/metis-subgraph-example
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: GravatarRegistry
+    source:
+      abi: GravatarRegistry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NewGravatar
+        - UpdatedGravatar
+      abis:
+        - name: GravatarRegistry
+          file: ./abis/GravatarRegistry.json
+      eventHandlers:
+        - event: NewGravatar(uint256,address,string,string)
+          handler: handleNewGravatar
+        - event: UpdatedGravatar(uint256,address,string,string)
+          handler: handleUpdatedGravatar
+      file: ./src/gravatar-registry.ts
