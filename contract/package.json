@@ -19,6 +19,6 @@
     "hardhat-deploy": "^0.11.43"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0"
   }
 }
