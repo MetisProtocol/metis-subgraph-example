@@ -5,12 +5,6 @@
       "startBlock": 1
     }
   },
-  "metis-goerli": {
-    "GravatarRegistry": {
-      "address": "0x7044FCcd012d4C1785d1c21162f4d1C1213e7f09",
-      "startBlock": 2273800
-    }
-  },
   "andromeda": {
     "GravatarRegistry": {
       "address": "0x247900C841bDc4A8Dcfedee6bdBA5EebaCcb047d",

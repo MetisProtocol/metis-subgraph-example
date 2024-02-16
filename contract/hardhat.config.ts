@@ -23,14 +23,14 @@ const config: HardhatUserConfig = {
         mnemonic: "test test test test test test test test test test test junk",
       },
     },
-    "metis-goerli": {
-      url: "https://goerli.gateway.metisdevops.link",
+    "metis-sepolia": {
+      url: "https://sepolia.rpc.metisdevops.link",
       accounts: [vars.get("LOCAL_TESTING_WALLET_KEY")],
       verify: {
         etherscan: {
-          apiKey: "api-key",
+          apiKey: "Not required",
           apiUrl:
-            "https://api.routescan.io/v2/network/testnet/evm/599/etherscan",
+            "https://sepolia.explorer.metisdevops.link",
         },
       },
     },
@@ -39,7 +39,7 @@ const config: HardhatUserConfig = {
       url: "https://andromeda.metis.io",
       verify: {
         etherscan: {
-          apiKey: "api-key",
+          apiKey: "Not required",
           apiUrl:
             "https://api.routescan.io/v2/network/mainnet/evm/1088/etherscan",
         },
@@ -61,12 +61,11 @@ const config: HardhatUserConfig = {
         },
       },
       {
-        network: "metis-goerli",
-        chainId: 599,
+        network: "metis-sepolia",
+        chainId: 59901,
         urls: {
-          apiURL:
-            "https://api.routescan.io/v2/network/testnet/evm/599/etherscan",
-          browserURL: "https://goerli-explorer.metis.io",
+          apiURL: "https://sepolia.explorer.metisdevops.link/api",
+          browserURL: "https://sepolia.explorer.metisdevops.link",
         },
       },
     ],

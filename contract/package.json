@@ -6,8 +6,8 @@
   "scripts": {
     "compile": "hardhat compile",
     "deploy:local": "hardhat deploy --network devnet",
-    "deploy:goerli": "hardhat deploy --network metis-goerli",
-    "verify:goerli": "hardhat etherscan-verify --network metis-goerli",
+    "deploy:sepolia": "hardhat deploy --network metis-sepolia",
+    "verify:sepolia": "hardhat etherscan-verify --network metis-sepolia",
     "deploy:andromeda": "hardhat deploy --network metis-andromeda",
     "verify:andromeda": "hardhat etherscan-verify --network metis-andromeda"
   },
