@@ -1,35 +1,39 @@
-version: '3.8'
+version: "3.8"
 services:
   geth:
-    build:
-      context: dev-geth
+    image: ethereum/client-go:v1.13.12
+    command:
+      - --dev
+      - --datadir=/devchain
+      - --password=/password
+      - --http
+      - --http.api=eth,net,web3
+      - --http.addr=0.0.0.0
+      - --http.vhosts=*
+      - --http.corsdomain=*
     healthcheck:
       test:
-        [
-          "CMD-SHELL",
-          "geth attach --datadir /data --exec eth.blockNumber"
-        ]
+        ["CMD-SHELL", "geth attach --datadir /devchain --exec eth.blockNumber"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 3s
     ports:
       - 8545:8545
-      - 8546:8546
     volumes:
-      - ./data/geth:/data
-      - ./dev-geth/genesis.json:/genesis.json
+      - ./data/geth:/devchain
+      - ./geth-dev-pass:/password:ro
   ipfs:
-    image: ipfs/go-ipfs:v0.23.0
+    image: ipfs/go-ipfs:v0.26.0
     ports:
-      - '5001:5001'
+      - "5001:5001"
     volumes:
       - ./data/ipfs:/data/ipfs
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "ipfs dag stat /ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn || exit 1"
+          "ipfs dag stat /ipfs/QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn || exit 1",
         ]
       interval: 5s
       timeout: 5s
@@ -37,15 +41,15 @@ services:
   postgres:
     image: postgres:16-alpine
     ports:
-      - '5432:5432'
+      - "5432:5432"
     command:
       [
         "postgres",
         "-cshared_preload_libraries=pg_stat_statements",
-        "-cmax_connections=200"
+        "-cmax_connections=200",
       ]
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready" ]
+      test: ["CMD", "sh", "-c", "pg_isready -U $$POSTGRES_USER -h $$(hostname -i)"]
       interval: 10s
       timeout: 10s
       retries: 5
@@ -58,13 +62,13 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
   graph-node:
-    image: graphprotocol/graph-node:v0.33.0
+    image: graphprotocol/graph-node:v0.34.1
     ports:
-      - '8000:8000'
-      - '8001:8001'
-      - '8020:8020'
-      - '8030:8030'
-      - '8040:8040'
+      - "8000:8000"
+      - "8001:8001"
+      - "8020:8020"
+      - "8030:8030"
+      - "8040:8040"
     depends_on:
       geth:
         condition: service_healthy
@@ -77,6 +81,6 @@ services:
       postgres_user: graph-node
       postgres_pass: pa$$w0rd
       postgres_db: graph-node
-      ipfs: 'ipfs:5001'
-      ethereum: 'devnet:http://geth:8545'
+      ipfs: "ipfs:5001"
+      ethereum: "devnet:http://geth:8545"
       GRAPH_LOG: info
