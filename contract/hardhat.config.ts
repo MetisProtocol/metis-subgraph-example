@@ -24,13 +24,12 @@ const config: HardhatUserConfig = {
       },
     },
     "metis-sepolia": {
-      url: "https://sepolia.rpc.metisdevops.link",
+      url: "https://sepolia.metisdevops.link",
       accounts: [vars.get("LOCAL_TESTING_WALLET_KEY")],
       verify: {
         etherscan: {
           apiKey: "Not required",
-          apiUrl:
-            "https://sepolia.explorer.metisdevops.link",
+          apiUrl: "https://sepolia-explorer-api.metisdevops.link",
         },
       },
     },
@@ -62,10 +61,10 @@ const config: HardhatUserConfig = {
       },
       {
         network: "metis-sepolia",
-        chainId: 59901,
+        chainId: 59902,
         urls: {
-          apiURL: "https://sepolia.explorer.metisdevops.link/api",
-          browserURL: "https://sepolia.explorer.metisdevops.link",
+          apiURL: "https://sepolia-explorer.metisdevops.link/api",
+          browserURL: "https://sepolia-explorer-api.metisdevops.link",
         },
       },
     ],
