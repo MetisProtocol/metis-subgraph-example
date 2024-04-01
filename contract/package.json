@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "hardhat": "^2.22.2",
-    "hardhat-deploy": "^0.12.1"
+    "hardhat-deploy": "^0.12.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0"
