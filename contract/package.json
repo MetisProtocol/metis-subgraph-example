@@ -15,7 +15,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "hardhat": "^2.19.4",
+    "hardhat": "^2.22.2",
     "hardhat-deploy": "^0.12.1"
   },
   "devDependencies": {
